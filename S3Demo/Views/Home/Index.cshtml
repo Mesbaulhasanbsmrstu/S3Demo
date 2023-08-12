@@ -1,0 +1,38 @@
+﻿@model List<S3FileDetails>
+
+<form enctype="multipart/form-data" method="post" asp-controller="Home" asp-action="UploadFileToS3">
+    <dl>
+        <dt style="margin-bottom:20px">
+            <label>
+                File Upload To S3 Bucket
+            </label>
+
+        </dt>
+        <dd>
+            <input type="file" name="file" id="file"/>
+        </dd>
+    </dl>
+    <input class="btn btn-success" type="submit" value="Upload To S3 Bucket"/>
+    <br/>
+    <label> Files Uploaded inS3 Bucket</label>
+    <br/>
+    <table class="table table-bordered">
+        <tr>
+            <th> Date</th>
+            <th> File Name</th>
+        </tr>
+        @foreach(var item in Model)
+        {
+            <tr>
+                <td>@item.FileDate</td>
+                <td>@item.FileName</td>
+                <td>
+                    <a asp-action="ViewFileForDownload" asp-route-id="@item.Id">Download</a>
+                    <a asp-action="DeleteFile" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </table>
+
+
+    </form>

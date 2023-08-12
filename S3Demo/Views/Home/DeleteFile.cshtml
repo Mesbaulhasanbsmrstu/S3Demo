@@ -1,0 +1,15 @@
+﻿
+@model S3FileDetails
+
+<table>
+    <tr>
+        <th>FileName</th>
+    </tr>
+    <tr>
+        <td> @Html.DisplayFor(m => m.FileName)</td>
+    </tr>
+</table>
+<form asp-action="DeleteFileToS3">
+    <input type="hidden" asp-for="FileName" />
+    <input type="submit" value="Delete" class="btn btn-danger" />
+</form>
