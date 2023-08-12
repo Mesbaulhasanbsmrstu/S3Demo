@@ -40,9 +40,8 @@ namespace S3Demo.Controllers
                 return RedirectToAction(nameof(Index));
             }
          
-            var accessKeyId = _config["ÄWSAccessKey:AccessKeyID"];
-            var secretAccessKey = _config["ÄWSAccessKey:SecretAccessKey"];
-            //using (var amazonS3Client = new AmazonS3Client("AKIARYVFP4ESTQKZWO7N", "KwFISWU6NLqd/2qcgH9WI1FUxtwwiNzu9docT9Wq"))
+            var accessKeyId = _config["AccessKey:AccessKeyID"];
+            var secretAccessKey = _config["AccessKey:SecretAccessKey"];
             using (var amazonS3Client = new AmazonS3Client(accessKeyId, secretAccessKey))
             {
                 using(var mempryStream = new MemoryStream() )
@@ -85,7 +84,9 @@ namespace S3Demo.Controllers
         //delete file from s3
         public async Task<IActionResult> DeleteFileToS3(string fileName)
         {
-            using (var amazonS3Client = new AmazonS3Client("AKIARYVFP4ESTQKZWO7N", "KwFISWU6NLqd/2qcgH9WI1FUxtwwiNzu9docT9Wq"))
+            var accessKeyId = _config["AccessKey:AccessKeyID"];
+            var secretAccessKey = _config["AccessKey:SecretAccessKey"];
+            using (var amazonS3Client = new AmazonS3Client(accessKeyId, secretAccessKey))
             {
                 var transferUtility = new TransferUtility(amazonS3Client);
                 await transferUtility.S3Client.DeleteObjectAsync(new DeleteObjectRequest()
@@ -119,7 +120,9 @@ namespace S3Demo.Controllers
 
         public async Task<IActionResult> DownloadFile(string fileName)
         {
-            using (var amazonS3Client = new AmazonS3Client("AKIARYVFP4ESTQKZWO7N", "KwFISWU6NLqd/2qcgH9WI1FUxtwwiNzu9docT9Wq"))
+            var accessKeyId = _config["AccessKey:AccessKeyID"];
+            var secretAccessKey = _config["AccessKey:SecretAccessKey"];
+            using (var amazonS3Client = new AmazonS3Client(accessKeyId, secretAccessKey))
             {
                 var transferUtility = new TransferUtility(amazonS3Client);
                 var response = await transferUtility.S3Client.GetObjectAsync(new GetObjectRequest()
